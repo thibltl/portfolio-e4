@@ -36,11 +36,46 @@ const data = {
     `
 };
 
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modal-text');
+
 function openModal(id) {
-    document.getElementById('modal-text').innerHTML = data[id];
-    document.getElementById('modal').style.display = 'block';
+    modalContent.innerHTML = data[id];
+    modal.style.display = 'flex';
+    // Animation fade + scale
+    setTimeout(() => {
+        modalContent.style.opacity = 1;
+        modalContent.style.transform = 'scale(1)';
+    }, 10);
 }
 
 function closeModal() {
-    document.getElementById('modal').style.display = 'none';
+    modalContent.style.opacity = 0;
+    modalContent.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
 }
+
+// Fermeture si clic en dehors du contenu
+modal.addEventListener('click', (e) => {
+    if(e.target === modal) closeModal();
+});
+
+// Fermeture avec touche ESC
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeModal();
+});
+
+// ===== Animation cartes au scroll =====
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, { threshold: 0.2 });
+
+cards.forEach(card => observer.observe(card));

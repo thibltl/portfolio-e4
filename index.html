@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Portfolio E4 – BTS SIO SLAM</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -14,7 +15,7 @@
 
 <main>
 
-<section class="card">
+<section class="card show">
     <h2>Présentation</h2>
     <p>
         Étudiant en BTS SIO option SLAM, j’ai réalisé mon stage chez
@@ -69,6 +70,21 @@
 <footer>
     <p>Portfolio E4 – BTS SIO SLAM</p>
 </footer>
+
+<script>
+/* ===== Animation cartes au scroll ===== */
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, { threshold: 0.2 });
+
+cards.forEach(card => observer.observe(card));
+</script>
 
 </body>
 </html>
